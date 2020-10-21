@@ -32,7 +32,9 @@ function App() {
   //   loadCharacters(i);
   // }
 
-  const search = Searchbar(loadCharacters);
+  const search = Searchbar({
+    onchange: (value) => loadCharacters(value),
+  });
 
   loadCharacters();
 
