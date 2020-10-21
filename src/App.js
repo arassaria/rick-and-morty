@@ -7,24 +7,23 @@ import { createElement } from "./utils/elements";
 function App() {
   const header = Header();
 
-  const main = createElement("main");
+  const main = createElement("main", {
+    className: "main",
+  });
 
-  async function getCharacters() {
-    const firstCharacter = await getCharacterById(1);
-    const secondCharacter = await getCharacterById(2);
+  async function getCharacters(id) {
+    const character = await getCharacterById(id);
     main.append(
       Character({
-        name: firstCharacter.name,
-        imgSrc: firstCharacter.image,
-      }),
-      Character({
-        name: secondCharacter.name,
-        imgSrc: secondCharacter.image,
+        name: character.name,
+        imgSrc: character.image,
       })
     );
   }
 
-  getCharacters();
+  for (let i = 1; i <= 10; i++) {
+    getCharacters(i);
+  }
 
   const container = createElement("div", { children: [header, main] });
   return container;
