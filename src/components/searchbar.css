@@ -20,4 +20,5 @@
   font-family: var(--font-family);
   color: var(--primary-color);
   border-radius: 6px;
+  text-align: center;
 }
