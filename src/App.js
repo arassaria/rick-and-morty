@@ -15,10 +15,8 @@ function App() {
     children: [charactersContainer],
   });
 
-  const search = Searchbar();
-
-  async function loadCharacters() {
-    const characters = await getCharacters();
+  async function loadCharacters(name) {
+    const characters = await getCharacters(name);
     const characterElements = characters.map((character) =>
       Character({
         name: character.name,
@@ -26,12 +24,15 @@ function App() {
       })
     );
     // const character = await getCharacterById(id);
+    charactersContainer.innerHTML = "";
     charactersContainer.append(...characterElements);
   }
 
   // for (let i = 1; i <= 10; i++) {
   //   loadCharacters(i);
   // }
+
+  const search = Searchbar(loadCharacters);
 
   loadCharacters();
 
