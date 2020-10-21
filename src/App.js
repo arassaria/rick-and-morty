@@ -4,6 +4,7 @@ import Characters from "./components/Characters";
 import Header from "./components/Header";
 import { getCharacters } from "./utils/api";
 import { createElement } from "./utils/elements";
+import Searchbar from "./components/Searchbar";
 
 function App() {
   const header = Header();
@@ -13,6 +14,8 @@ function App() {
     className: "main",
     children: [charactersContainer],
   });
+
+  const search = Searchbar();
 
   async function loadCharacters() {
     const characters = await getCharacters();
@@ -32,7 +35,7 @@ function App() {
 
   loadCharacters();
 
-  const container = createElement("div", { children: [header, main] });
+  const container = createElement("div", { children: [header, search, main] });
   return container;
 }
 
