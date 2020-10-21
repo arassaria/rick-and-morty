@@ -1,24 +1,30 @@
 import "./app.css";
 import Character from "./components/Character";
 import Header from "./components/Header";
+import { getCharacterById } from "./utils/api";
 import { createElement } from "./utils/elements";
 
 function App() {
   const header = Header();
 
-  const rickSanchez = Character({
-    name: "Rick Sanchez",
-    imgSrc: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-  });
+  const main = createElement("main");
 
-  const mortySmith = Character({
-    name: "Morty Smith",
-    imgSrc: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-  });
+  async function getCharacters() {
+    const firstCharacter = await getCharacterById(1);
+    const secondCharacter = await getCharacterById(2);
+    main.append(
+      Character({
+        name: firstCharacter.name,
+        imgSrc: firstCharacter.image,
+      }),
+      Character({
+        name: secondCharacter.name,
+        imgSrc: secondCharacter.image,
+      })
+    );
+  }
 
-  const main = createElement("main", {
-    children: [rickSanchez, mortySmith],
-  });
+  getCharacters();
 
   const container = createElement("div", { children: [header, main] });
   return container;
