@@ -5,27 +5,42 @@ import Header from "./components/Header";
 import { getCharacters } from "./utils/api";
 import { createElement } from "./utils/elements";
 import Searchbar from "./components/Searchbar";
+import Button from "./components/Button";
 
 function App() {
+  let lastName = null;
+  let nextPage = null;
+
   const header = Header();
 
   const charactersContainer = Characters();
+  const loadMoreButton = Button({
+    innerText: "Load More",
+    onclick: () => {
+      loadCharacters(lastName, nextPage);
+    },
+  });
   const main = createElement("main", {
     className: "main",
-    children: [charactersContainer],
+    children: [charactersContainer, loadMoreButton],
   });
 
-  async function loadCharacters(name) {
-    const characters = await getCharacters(name);
-    const characterElements = characters.map((character) =>
+  async function loadCharacters(name, page) {
+    const characters = await getCharacters(name, page);
+    const characterElements = characters.results.map((character) =>
       Character({
         name: character.name,
         imgSrc: character.image,
       })
     );
     // const character = await getCharacterById(id);
-    charactersContainer.innerHTML = "";
     charactersContainer.append(...characterElements);
+
+    nextPage = characters.info.next?.match(/\d+/)[0];
+    loadMoreButton.disabled = !characters.info.next;
+    lastName = name;
+    // Reappend loadMoreButton to avoid scrolling.
+    main.append(loadMoreButton);
   }
 
   // for (let i = 1; i <= 10; i++) {
@@ -33,12 +48,24 @@ function App() {
   // }
 
   const search = Searchbar({
-    onchange: (value) => loadCharacters(value),
+    onchange: (value) => {
+      charactersContainer.innerHTML = "";
+      loadCharacters(value);
+    },
   });
 
   loadCharacters();
 
   const container = createElement("div", { children: [header, search, main] });
+
+  window.addEventListener("scroll", () => {
+    const offsetY =
+      loadMoreButton.offsetParent.offsetHeight - window.innerHeight - 1;
+    if (offsetY < window.pageYOffset) {
+      loadMoreButton.click();
+    }
+  });
+
   return container;
 }
 
