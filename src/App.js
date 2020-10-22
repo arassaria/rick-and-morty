@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import { getCharacters } from "./utils/api";
 import { createElement } from "./utils/elements";
 import Searchbar from "./components/Searchbar";
+import Button from "./components/Button";
 
 function App() {
   let lastName = null;
@@ -13,9 +14,8 @@ function App() {
   const header = Header();
 
   const charactersContainer = Characters();
-  const loadMoreButton = createElement("button", {
+  const loadMoreButton = Button({
     innerText: "Load More",
-    className: "loadmore",
     onclick: () => {
       loadCharacters(lastName, nextPage);
     },

@@ -31,20 +31,3 @@ body {
   padding: 30px 20px;
   text-align: center;
 }
-
-.loadmore {
-  border-radius: 10px;
-  background: var(--card-bg-color);
-  color: var(--primary-color);
-  width: 10rem;
-  height: 3rem;
-  font-family: var(--font-family);
-}
-
-.loadmore:active {
-  background: var(--highlight);
-}
-
-.loadmore:disabled {
-  display: none;
-}

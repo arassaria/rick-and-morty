@@ -1,0 +1,16 @@
+.button {
+  border-radius: 10px;
+  background: var(--card-bg-color);
+  color: var(--primary-color);
+  width: 10rem;
+  height: 3rem;
+  font-family: var(--font-family);
+}
+
+.button:active {
+  background: var(--highlight);
+}
+
+.button:disabled {
+  display: none;
+}
