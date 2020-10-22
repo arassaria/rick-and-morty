@@ -57,6 +57,15 @@ function App() {
   loadCharacters();
 
   const container = createElement("div", { children: [header, search, main] });
+
+  window.addEventListener("scroll", () => {
+    const offsetY =
+      loadMoreButton.offsetParent.offsetHeight - window.innerHeight - 1;
+    if (offsetY < window.pageYOffset) {
+      loadMoreButton.click();
+    }
+  });
+
   return container;
 }
 
