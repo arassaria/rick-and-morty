@@ -31,6 +31,7 @@ function App() {
       Character({
         name: character.name,
         imgSrc: character.image,
+        status: character.status,
       })
     );
     // const character = await getCharacterById(id);

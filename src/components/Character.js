@@ -1,10 +1,11 @@
 import { createElement } from "../utils/elements";
 import "./character.css";
 
-function Character({ name, imgSrc }) {
+function Character({ name, imgSrc, status }) {
+  let alive = status === "Alive" ? "🟢 - " : "🔴 - ";
   const title = createElement("p", {
     className: "character__title",
-    innerText: name,
+    innerText: alive + name,
   });
   const avatar = createElement("img", {
     className: "character__img",
