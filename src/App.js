@@ -27,11 +27,16 @@ function App() {
 
   async function loadCharacters(name, page) {
     const characters = await getCharacters(name, page);
+
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
     const characterElements = characters.results.map((character) =>
       Character({
         name: character.name,
         imgSrc: character.image,
         status: character.status,
+        isFavorite: favorites.includes(character.id),
+        id: character.id,
       })
     );
     // const character = await getCharacterById(id);
