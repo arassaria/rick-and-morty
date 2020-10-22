@@ -37,10 +37,10 @@ function App() {
     charactersContainer.append(...characterElements);
 
     nextPage = characters.info.next?.match(/\d+/)[0];
-
     loadMoreButton.disabled = !characters.info.next;
-
     lastName = name;
+    // Reappend loadMoreButton to avoid scrolling.
+    main.append(loadMoreButton);
   }
 
   // for (let i = 1; i <= 10; i++) {
